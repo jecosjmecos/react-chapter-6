@@ -40,8 +40,9 @@ class EmployeesAddForm extends Component {
 									value={salary}
 									onChange={this.onValueChange} />
 
-							<button type="submit"
-											className="btn btn-outline-light">Добавить</button>
+							<button type="button"
+											className="btn btn-outline-light"
+											onClick={() => this.props.onAdd(name, salary)}>Добавить</button>
 					</form>
 			</div>
 		);
