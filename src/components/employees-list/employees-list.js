@@ -4,6 +4,10 @@ import './employees-list.css';
 import EmployeesListItem from '../employees-list-item/employees-list-item';
 
 class EmployeesList extends Component{
+	constructor(props){
+		super(props);
+	}
+
 	render(){
 		const elements = this.props.data.map(item => {
 				return (
@@ -12,7 +16,11 @@ class EmployeesList extends Component{
 						name={item.name} 
 						salary={item.salary} 
 						increase={item.increase}
-						onDelete={() => this.props.onDelete(item.id)} />
+						rise={item.rise}
+						onDelete={() => this.props.onDelete(item.id)}
+						onToggleIncrease={() => this.props.onToggleIncrease(item.id)}
+						onToggleRise={() => this.props.onToggleRise(item.id)}
+						 />
 				);
 			});
 

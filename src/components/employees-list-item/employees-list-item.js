@@ -3,31 +3,9 @@ import {Component} from 'react';
 import './employees-list-item.css';
 
 class EmployeesListItem extends Component{
-    constructor(props){
-        super(props);
-
-        this.state = {
-            increase: false,
-            like: false
-        }
-    }
-
-    onIncrease = () => {
-        this.setState(({increase}) => ({
-            increase: !increase
-        }));
-    }
-
-    changeLike = () => {
-        this.setState(({like}) => ({
-            like: !like
-        }))
-    }
 
     render(){
-        const increase = this.state.increase,
-            like = this.state.like,
-            onDelete = this.props.onDelete
+        const {onDelete, onToggleIncrease, onToggleRise, increase, rise} = this.props;
 
         let classNames = "list-group-item d-flex justify-content-between";
 
@@ -35,18 +13,18 @@ class EmployeesListItem extends Component{
             classNames += ' increase'; 
         }
 
-        if(like){
+        if(rise){
             classNames += ' like'; 
         }
 
         return (
             <li className={classNames}>
-                <span onClick={this.changeLike} className="list-group-item-label">{this.props.name}</span>
+                <span onClick={onToggleRise} className="list-group-item-label">{this.props.name}</span>
                 <input type="text" className="list-group-item-input" defaultValue={this.props.salary + "$"}/>
                 <div className='d-flex justify-content-center align-items-center'>
                     <button type="button"
                         className="btn-cookie btn-sm "
-                        onClick={this.onIncrease}>
+                        onClick={onToggleIncrease}>
                         <i className="fas fa-cookie"></i>
                     </button>
 

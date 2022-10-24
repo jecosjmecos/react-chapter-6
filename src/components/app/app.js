@@ -14,11 +14,12 @@ class App extends Component {
 		super(props);
 		this.state = {
 			data: [
-				{name: "Carl W.", salary: "1200", increase: false, id: 1 },
-				{name: "John C.", salary: "800", increase: false, id: 2 },
-				{name: "Alex M.", salary: "1000", increase: true, id: 3 },
+				{name: "Carl W.", salary: "1200", increase: false, rise: true, id: 1 },
+				{name: "John C.", salary: "800", increase: false, rise: false, id: 2 },
+				{name: "Alex M.", salary: "1000", increase: true, rise: false, id: 3 },
 			]
 		}
+		this.maxId = 4;
 	}
 
 	deleteItem = (id) => {
@@ -29,20 +30,50 @@ class App extends Component {
 		})
 	}
 
-	addNewItem = (itemName, itemSalary) => {
+	addItem = (name, salary) => {
 
-		if(itemName.length > 0 && itemSalary.length > 0 ){
-			const item = {
-				name: itemName,
-				salary: itemSalary,
-				increase: false,
-				id: this.state.data.length + 1
-			}
-
-			this.setState((state) => {
-				state.data.push(item);
-			});
+		const newItem = {
+			name,
+			salary,
+			increase: false,
+			id: this.maxId++
 		}
+
+		this.setState(({data}) => {
+			const newArr = [...data, newItem];
+
+			return {
+				data: newArr
+			}
+		});
+	}
+
+	onToggleIncrease = (id) => {
+		this.setState(({data}) => {
+			const index = data.findIndex(elem => elem.id === id);
+
+			const old = data[index];
+			const newItem = {...old, increase: !old.increase};
+			const newArray = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+			return {
+				data: newArray
+			}
+		})
+	}
+
+	onToggleRise = (id) => {
+		this.setState(({data}) => {
+			const index = data.findIndex(elem => elem.id === id);
+
+			const old = data[index];
+			const newItem = {...old, rise: !old.rise};
+			const newArray = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+			return {
+				data: newArray
+			}
+		})
 	}
 
 	render(){
@@ -57,9 +88,11 @@ class App extends Component {
 
 				<EmployeesList 
 					data={this.state.data}
-					onDelete={this.deleteItem} />
+					onDelete={this.deleteItem}
+					onToggleIncrease={this.onToggleIncrease}
+					onToggleRise={this.onToggleRise} />
 
-				<EmployeesAddForm onAdd={this.addNewItem} />
+				<EmployeesAddForm onAdd={this.addItem} />
 
 				{/* <AppTest />  */}
 			</div>
