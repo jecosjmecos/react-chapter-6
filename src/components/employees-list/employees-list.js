@@ -18,8 +18,7 @@ class EmployeesList extends Component{
 						increase={item.increase}
 						rise={item.rise}
 						onDelete={() => this.props.onDelete(item.id)}
-						onToggleIncrease={() => this.props.onToggleIncrease(item.id)}
-						onToggleRise={() => this.props.onToggleRise(item.id)}
+						onToggleProp={(e) => this.props.onToggleProp(item.id, e.currentTarget.getAttribute('data-toggle'))}
 						 />
 				);
 			});
